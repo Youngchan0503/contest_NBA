@@ -102,7 +102,7 @@ export default function TeamRosterView({
             <Sparkles size={14} /> 스카우팅 타깃 선택
           </span>
           <p className="prompt-desc">
-            현재 결장 또는 이탈하여 <strong>대체 자원 발굴이 필요한 선수</strong>를 클릭하세요.
+            결장 선수를 클릭해 <strong>대체 선수</strong>를 찾아보세요.
           </p>
         </div>
       </section>
@@ -219,12 +219,15 @@ export default function TeamRosterView({
                 {/* 선수명 및 연봉 */}
                 <div className="player-name-block">
                   <h3 className="player-name-text">{player.name}</h3>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '2px' }}>
-                    <span className="cluster-name-sub" style={{ color: cluster.color }}>
+                  <div className="player-cluster-salary-line">
+                    <span className="cluster-name-sub" style={{ color: cluster.color }} title={cluster.name}>
                       {cluster.name}
                     </span>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#059669', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '1px 5px', borderRadius: '4px' }}>
-                      💰 {getSalaryDisplay(player, true)}
+                    <span
+                      className="roster-salary-pill"
+                      title={getSalaryDisplay(player)}
+                    >
+                      💰 {player.salaryShort && player.salaryShort !== '-' ? player.salaryShort : '연봉 정보 없음'}
                     </span>
                   </div>
                 </div>

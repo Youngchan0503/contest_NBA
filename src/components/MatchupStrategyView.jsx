@@ -38,16 +38,32 @@ const DEFAULT_DEFENSE_COORDINATES = {
 
 const ROUTE_CONFIG = {
   // 공격 전술 동선
-  dribble: { color: '#f43f5e', strokeWidth: 4, label: '드리블 돌파' },
-  pass: { color: '#0ea5e9', strokeWidth: 3.5, label: '패스' },
-  screen: { color: '#f59e0b', strokeWidth: 4, label: '스크린' },
-  cut: { color: '#10b981', strokeWidth: 3.5, label: '오프볼 컷인' },
+  dribble: { color: '#f43f5e', strokeWidth: 2.7, label: '드리블 돌파' },
+  pass: { color: '#0ea5e9', strokeWidth: 2.5, label: '패스' },
+  screen: { color: '#f59e0b', strokeWidth: 2.7, label: '스크린' },
+  cut: { color: '#10b981', strokeWidth: 2.5, label: '오프볼 컷인' },
   // 수비 전술 동선
-  closeout: { color: '#0284c7', strokeWidth: 3.5, label: '외곽 클로즈아웃' },
-  rotation: { color: '#8b5cf6', strokeWidth: 4, label: '헬프 수비 로테이션' },
-  trap: { color: '#ec4899', strokeWidth: 4, label: '더블팀 트랩' },
-  drop: { color: '#059669', strokeWidth: 3.5, label: '골밑 드롭' }
+  closeout: { color: '#0284c7', strokeWidth: 2.5, label: '외곽 클로즈아웃' },
+  rotation: { color: '#8b5cf6', strokeWidth: 2.7, label: '헬프 수비 로테이션' },
+  trap: { color: '#ec4899', strokeWidth: 2.7, label: '더블팀 트랩' },
+  drop: { color: '#059669', strokeWidth: 2.5, label: '골밑 드롭' }
 };
+
+function compactCourtRole(role, maxLength = 8) {
+  const cleanRole = String(role || '').replace(/\s+/g, ' ').trim();
+  const mainRole = cleanRole.split(/[(&,/·]/, 1)[0].trim();
+  const words = mainRole.split(/\s+/).filter(Boolean);
+  let compact = '';
+
+  for (const word of words) {
+    const next = compact ? `${compact} ${word}` : word;
+    if (next.length > maxLength) break;
+    compact = next;
+  }
+
+  if (compact) return compact;
+  return `${(words[0] || cleanRole).slice(0, Math.max(1, maxLength - 1))}…`;
+}
 
 function TeamPicker({ team, teams, onChange, side, excludedTeamId, customTeamOption }) {
   return (
@@ -184,32 +200,32 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
               <stop offset="100%" stopColor="#a855f7" stopOpacity="0.3" />
             </linearGradient>
 
-            {/* AI 공격 전술 화살표 마커 */}
-            <marker id="marker-ai-dribble" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#f43f5e" />
+            {/* 작고 가벼운 쉐브론 화살촉 */}
+            <marker id="marker-ai-dribble" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#f43f5e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
-            <marker id="marker-ai-pass" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#0ea5e9" />
+            <marker id="marker-ai-pass" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#0ea5e9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
-            <marker id="marker-ai-screen" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#f59e0b" />
+            <marker id="marker-ai-screen" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
-            <marker id="marker-ai-cut" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#10b981" />
+            <marker id="marker-ai-cut" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
 
             {/* AI 수비 전술 화살표 마커 */}
-            <marker id="marker-ai-closeout" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#0284c7" />
+            <marker id="marker-ai-closeout" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#0284c7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
-            <marker id="marker-ai-rotation" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#8b5cf6" />
+            <marker id="marker-ai-rotation" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
-            <marker id="marker-ai-trap" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#ec4899" />
+            <marker id="marker-ai-trap" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#ec4899" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
-            <marker id="marker-ai-drop" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-              <path d="M0,1 L9,5 L0,9 z" fill="#059669" />
+            <marker id="marker-ai-drop" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="7" refY="4" markerUnits="userSpaceOnUse" orient="auto">
+              <path d="M1 1 L7 4 L1 7" fill="none" stroke="#059669" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
 
             {/* 콤팩트 아바타 원형 클리핑 */}
@@ -236,35 +252,22 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
             </g>
           )}
 
-          {/* AI 전술 생성 완료 시: 실시간 동선 렌더링 */}
+          {/* 경로를 넓고 옅은 색으로 깔아 전술이 전개되는 공간을 표시 */}
           {hasAiTactics && tacticData.routes?.length > 0 && (
-            <g className="court-tactics-routes-layer">
+            <g className="court-tactics-zones-layer" pointerEvents="none">
               {tacticData.routes.map((rt, idx) => {
                 const cfg = ROUTE_CONFIG[rt.type] || ROUTE_CONFIG.dribble;
-                const markerName = `marker-ai-${rt.type || 'dribble'}`;
-                const isPass = rt.type === 'pass';
                 return (
-                  <g key={`ai-route-${idx}`}>
-                    <path
-                      d={rt.path}
-                      fill="none"
-                      stroke="#ffffff"
-                      strokeWidth={cfg.strokeWidth + 3.5}
-                      strokeLinecap="round"
-                      opacity="0.9"
-                    />
-                    <path
-                      d={rt.path}
-                      fill="none"
-                      stroke={cfg.color}
-                      strokeWidth={cfg.strokeWidth}
-                      strokeLinecap="round"
-                      className={isPass ? 'tactical-route-pass' : 'tactical-route-draw'}
-                      style={{ animationDelay: `${idx * 0.22}s` }}
-                      markerEnd={`url(#${markerName})`}
-                      opacity="0.95"
-                    />
-                  </g>
+                  <path
+                    key={`route-space-${idx}`}
+                    d={rt.path}
+                    fill="none"
+                    stroke={cfg.color}
+                    strokeWidth="52"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    opacity="0.2"
+                  />
                 );
               })}
             </g>
@@ -275,6 +278,7 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
             const [x, y] = coordinates[position] || [300, 200];
             const shortName = player?.name?.split(' ').pop() || '공석';
             const aiRole = hasAiTactics ? tacticData?.playerPlacements?.[position]?.role : null;
+            const compactRole = compactCourtRole(aiRole, isReplaced ? 6 : 8);
             const strokeColor = isReplaced ? '#f59e0b' : (isDefense ? '#0ea5e9' : (team.color || '#7657dc'));
 
             return (
@@ -323,6 +327,7 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
 
                 {hasAiTactics && aiRole ? (
                   <g className="court-role-badge-group">
+                    <title>{aiRole}</title>
                     <rect
                       x="-40"
                       y="45"
@@ -341,7 +346,7 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
                       fontWeight="800"
                       fill={isReplaced ? '#92400e' : (isDefense ? '#0369a1' : '#6d28d9')}
                     >
-                      {isReplaced ? `★ ${aiRole.slice(0, 7)}` : aiRole.slice(0, 7)}
+                      {isReplaced ? `★ ${compactRole}` : compactRole}
                     </text>
                   </g>
                 ) : isReplaced ? (
@@ -355,6 +360,40 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
               </g>
             );
           })}
+
+          {/* 선수 노드 위에 반투명 전술 동선을 그려 경로를 또렷하게 표시 */}
+          {hasAiTactics && tacticData.routes?.length > 0 && (
+            <g className="court-tactics-routes-layer">
+              {tacticData.routes.map((rt, idx) => {
+                const cfg = ROUTE_CONFIG[rt.type] || ROUTE_CONFIG.dribble;
+                const markerName = `marker-ai-${rt.type || 'dribble'}`;
+                const isPass = rt.type === 'pass';
+                return (
+                  <g key={`ai-route-${idx}`}>
+                    <path
+                      d={rt.path}
+                      fill="none"
+                      stroke="#ffffff"
+                      strokeWidth={cfg.strokeWidth + 2.2}
+                      strokeLinecap="round"
+                      opacity="0.58"
+                    />
+                    <path
+                      d={rt.path}
+                      fill="none"
+                      stroke={cfg.color}
+                      strokeWidth={cfg.strokeWidth}
+                      strokeLinecap="round"
+                      className={isPass ? 'tactical-route-pass' : 'tactical-route-draw'}
+                      style={{ animationDelay: `${idx * 0.22}s` }}
+                      markerEnd={`url(#${markerName})`}
+                      opacity="0.9"
+                    />
+                  </g>
+                );
+              })}
+            </g>
+          )}
         </svg>
 
         {/* AI 전술 생성 전: 코트 블러 & 모던 플로팅 상태 안내 카드 */}
@@ -401,6 +440,7 @@ function CourtStrategyDiagram({ team, summary, style, aiTactics, tacticMode, aiS
               </span>
             );
           })}
+          <span className="route-zone-legend"><i />색 영역: 전술 전개 공간</span>
         </div>
       )}
 
@@ -646,14 +686,35 @@ export default function MatchupStrategyView({ onBack, customLineupData, onClearC
             const valueA = summaryA.stats[metric.key] * (metric.percent ? 100 : 1);
             const valueB = summaryB.stats[metric.key] * (metric.percent ? 100 : 1);
             const maxValue = Math.max(valueA, valueB, 0.01);
+            const scaleMax = metric.percent ? 100 : maxValue;
+            const teamValues = [
+              { id: teamA.id === 'CUSTOM' ? '맞춤' : teamA.id, value: valueA, color: teamA.color || '#7657dc' },
+              { id: teamB.id === 'CUSTOM' ? '맞춤' : teamB.id, value: valueB, color: teamB.color || '#7657dc' }
+            ];
             return (
               <div className="matchup-metric-row" key={metric.key}>
-                <div className="matchup-metric-label"><span>{metric.label}</span><strong>{valueA.toFixed(metric.precision)}{metric.unit}</strong></div>
-                <div className="matchup-metric-track" aria-label={`${teamA.id} ${valueA.toFixed(metric.precision)}, ${teamB.id} ${valueB.toFixed(metric.precision)}`}>
-                  <span className="matchup-metric-fill matchup-fill-a" style={{ width: `${Math.max(3, (valueA / maxValue) * 50)}%`, backgroundColor: teamA.color || '#7657dc' }} />
-                  <span className="matchup-metric-fill matchup-fill-b" style={{ width: `${Math.max(3, (valueB / maxValue) * 50)}%`, backgroundColor: teamB.color || '#7657dc' }} />
+                <strong className="matchup-metric-title">{metric.label}</strong>
+                <div className="matchup-metric-bars">
+                  {teamValues.map((item) => (
+                    <div className="matchup-metric-bar-row" key={item.id}>
+                      <span className="matchup-metric-team">
+                        <i style={{ backgroundColor: item.color }} />
+                        {item.id}
+                      </span>
+                      <div
+                        className="matchup-metric-track"
+                        role="img"
+                        aria-label={`${item.id} ${item.value.toFixed(metric.precision)}${metric.unit}`}
+                      >
+                        <span
+                          className="matchup-metric-fill"
+                          style={{ width: `${Math.min((item.value / scaleMax) * 100, 100)}%`, backgroundColor: item.color }}
+                        />
+                      </div>
+                      <strong className="matchup-metric-value">{item.value.toFixed(metric.precision)}{metric.unit}</strong>
+                    </div>
+                  ))}
                 </div>
-                <div className="matchup-metric-label matchup-metric-b"><strong>{valueB.toFixed(metric.precision)}{metric.unit}</strong><span>{metric.label}</span></div>
               </div>
             );
           })}

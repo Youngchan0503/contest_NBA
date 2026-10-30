@@ -11,10 +11,11 @@ import {
   ArrowLeft,
   Home,
   Target,
-  ShieldCheck,
-  GitBranch
+  ShieldCheck
 } from 'lucide-react';
 import './App.css';
+
+const CURRENT_PLAYER_SEASON = Math.max(...PLAYERS.map((player) => player.season || 0));
 
 export default function App() {
   // 3단계 드릴다운 네비게이션 상태: 'TEAMS' (1단계) | 'ROSTER' (2단계) | 'SCOUT' (3단계)
@@ -96,7 +97,7 @@ export default function App() {
   // 선택된 팀의 소속 선수 목록
   const teamPlayers = useMemo(() => {
     const tId = selectedTeamId || targetPlayer.team;
-    return PLAYERS.filter((p) => p.team === tId);
+    return PLAYERS.filter((p) => p.season === CURRENT_PLAYER_SEASON && p.team === tId);
   }, [selectedTeamId, targetPlayer]);
 
   // 대체 추천 선수 목록 계산 (KNN 전술 거리 오름차순)
@@ -104,7 +105,9 @@ export default function App() {
     if (!targetPlayer) return [];
 
     // 타겟 선수 본인 및 동일 팀 소속 선수 제외 (타 팀 영입 대상 탐색)
-    const candidates = PLAYERS.filter((p) => p.id !== targetPlayer.id && p.team !== targetPlayer.team);
+    const candidates = PLAYERS.filter((p) => (
+      p.season === targetPlayer.season && p.id !== targetPlayer.id && p.team !== targetPlayer.team
+    ));
 
     // 각 후보 선수별 KNN 전술 거리 및 매칭 스코어 계산
     const scored = candidates.map((candidate) => {
@@ -141,18 +144,6 @@ export default function App() {
           </div>
         </div>
 
-        <div className="nav-right">
-          <a
-            href="https://github.com/Youngchan0503/contest_NBA"
-            className="btn-doc-link"
-            title="GitHub 프로젝트 저장소 열기"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <GitBranch size={15} />
-            <span>프로젝트 저장소</span>
-          </a>
-        </div>
       </header>
 
       {/* 2. 단계별 뷰 렌더링 */}
@@ -265,8 +256,8 @@ export default function App() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '3px'
-                          }} title={getSalaryDisplay(targetPlayer)}>
-                            💰 연봉: {getSalaryDisplay(targetPlayer, true)}
+                          }} title={targetPlayer.salaryShort && targetPlayer.salaryShort !== '-' ? targetPlayer.salaryShort : '연봉 정보 없음'}>
+                            💰 연봉: {targetPlayer.salaryShort && targetPlayer.salaryShort !== '-' ? targetPlayer.salaryShort : '정보 없음'}
                           </span>
                           <span className="tag-pill height" style={{
                             background: '#eff6ff',
@@ -289,7 +280,7 @@ export default function App() {
                     <div className="spotlight-radar-label">
                       <span>선수 고유 6대 지표 역량 방사형 차트</span>
                     </div>
-                    <RadarChart p1={targetPlayer} size={360} />
+                    <RadarChart p1={targetPlayer} size={360} visualScale={1.1} />
                   </div>
 
                   {/* 3. 그 아래: 군집 뱃지 (군집 2 등) 및 설명 */}
@@ -372,9 +363,6 @@ export default function App() {
       <footer className="footer">
         <div>
           <strong>COURT RUSH</strong> — NBA Player Similarity & Replacement Recommendation System
-        </div>
-        <div className="footer-sub">
-          K-Digital Training AI/Data Engineering Project 3 | Machine Learning Clustering & Analytics
         </div>
       </footer>
     </div>

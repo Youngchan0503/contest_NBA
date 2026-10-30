@@ -90,7 +90,7 @@ export default function ComparisonModal({ target, candidate, allPlayers = [], on
   // AI 스카우터 코멘트 생성
   const generateScoutingReport = () => {
     const isSameCluster = target.clusterId === activeCandidate.clusterId;
-    
+
     // 파생변수 기반 전술적 격차 분석
     const t3p = getValue(target, 'three_point_share');
     const c3p = getValue(activeCandidate, 'three_point_share');
@@ -411,7 +411,7 @@ export default function ComparisonModal({ target, candidate, allPlayers = [], on
                 const knnRes = calculateKNNDistance(target, activeCandidate);
                 const sameSalaryYear = target.salaryYear && target.salaryYear === activeCandidate.salaryYear;
                 const salDiff = (sameSalaryYear && target.salaryNum && activeCandidate.salaryNum)
-                  ? target.salaryNum - activeCandidate.salaryNum 
+                  ? target.salaryNum - activeCandidate.salaryNum
                   : null;
                 const fit = getPhysicalFitAnalysis(target, activeCandidate);
 
@@ -446,8 +446,8 @@ export default function ComparisonModal({ target, candidate, allPlayers = [], on
                         border: `1px solid ${salDiff > 0 ? '#a7f3d0' : '#fecaca'}`,
                         whiteSpace: 'nowrap'
                       }}>
-                        {salDiff > 0 
-                          ? `절감 -$${(salDiff / 1000000).toFixed(1)}M` 
+                        {salDiff > 0
+                          ? `절감 -$${(salDiff / 1000000).toFixed(1)}M`
                           : `추가 +$${(Math.abs(salDiff) / 1000000).toFixed(1)}M`}
                       </span>
                     )}
@@ -503,7 +503,7 @@ export default function ComparisonModal({ target, candidate, allPlayers = [], on
             const knnRes = calculateKNNDistance(target, activeCandidate);
             const sameSalaryYear = target.salaryYear && target.salaryYear === activeCandidate.salaryYear;
             const salDiff = (sameSalaryYear && target.salaryNum && activeCandidate.salaryNum)
-              ? target.salaryNum - activeCandidate.salaryNum 
+              ? target.salaryNum - activeCandidate.salaryNum
               : null;
             const fit = getPhysicalFitAnalysis(target, activeCandidate);
             const tH = target.height_cm || 198;
@@ -593,7 +593,7 @@ export default function ComparisonModal({ target, candidate, allPlayers = [], on
                         {fit.badge}
                       </span>
                     </div>
-                    
+
                     {/* 신장 바 비교 시각화 */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', margin: '4px 0' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.68rem' }}>

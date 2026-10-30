@@ -62,4 +62,44 @@ export const SALARY_HISTORY = Object.freeze({
   "smithty02": { salary2025_26: 1955377 }, // Tyler Smith
   "tysonhu01": { salary2025_26: 2221677 }, // Hunter Tyson
   "inglejo01": { salary2025_26: 2296274 }, // Joe Ingles
+  // Supplemental 2025-26 salary rows for players absent from the original export.
+  // Source: https://huggingface.co/datasets/Mr-Bridge/nba-salary-cap-contracts-2016-2026/blob/main/player_salaries.csv
+  // Compiled from HoopsHype salary snapshots accessed 2026-07-07.
+  "watkija01": { salary2025_26: 1546981 }, // Jamir Watkins
+  "loveca01": { salary2025_26: 636435 }, // Caleb Love
+  "cardwdy01": { salary2025_26: 1218461 }, // Dylan Cardwell
+  "jacksqu01": { salary2025_26: 1022998 }, // Quenton Jackson
+  "smallja01": { salary2025_26: 636435 }, // Javon Small
+  "coopesh01": { salary2025_26: 636435 }, // Sharife Cooper
+  "mashaja01": { salary2025_26: 476136 }, // Jahmai Mashack
+  "vukcetr01": { salary2025_26: 3256068 }, // Tristan Vukcevic
+  "thompet01": { salary2025_26: 431096 }, // Ethan Thompson
+  "harklej01": { salary2025_26: 636434 }, // Elijah Harkless
+  "mbengbe01": { salary2025_26: 219459 }, // Bez Mbeng
+  "peterta01": { salary2025_26: 636434 }, // Taelon Peter
+  "tshieos01": { salary2025_26: 636434 }, // Oscar Tshiebwe
+  "blackle01": { salary2025_26: 164074 }, // Leaky Black
+  "reeseju01": { salary2025_26: 141554 }, // Julian Reese
+  "etienty01": { salary2025_26: 636435 }, // Tyson Etienne
+  "chandke01": { salary2025_26: 235460 }, // Kennedy Chandler
+  "barnhbr01": { salary2025_26: 636435 }, // Brooks Barnhizer
+  "johnsch06": { salary2025_26: 347451 }, // Chaney Johnson
+  "liveris01": { salary2025_26: 636435 }, // Isaiah Livers
+  "olbrila01": { salary2025_26: 636435 }, // Lachlan Olbrich
+  "slawsja01": { salary2025_26: 141554 }, // Jalen Slawson
+  "burtoty01": { salary2025_26: 146306 }, // Tyler Burton
+  "cryerlj01": { salary2025_26: 424662 }, // LJ Cryer
+  "hinsobl01": { salary2025_26: 202680 }, // Blake Hinson
+  "leonsma01": { salary2025_26: 405359 }, // Malevy Leons
+  "ryanco01": { salary2025_26: 147988 }, // Cormac Ryan
+  "simpskj01": { salary2025_26: 806942 }, // KJ Simpson
+  "poulajo01": { salary2025_26: 141554 }, // John Poulakidas
+  "lawsoaj01": { salary2025_26: 660121 }, // A.J. Lawson
+  "okanito01": { salary2025_26: 73153 }, // Toby Okani
+  "hallpj01": { salary2025_26: 353885 }, // PJ Hall
+  "kawamyu01": { salary2025_26: 312062 }, // Yuki Kawamura
+  "dennira01": { salary2025_26: 530535 }, // RayJ Dennis
+  "beaucma01": { salary2025_26: 347451 }, // MarJon Beauchamp
+  "youngch01": { salary2025_26: 768338 }, // Chris Youngblood
+  "garcian01": { salary2025_26: 73153 }, // Andersson Garcia
 });

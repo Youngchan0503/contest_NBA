@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * 6각 레이더 차트 (CourtScout 라이트 테마)
  */
-export default function RadarChart({ p1, p2, size = 320 }) {
+export default function RadarChart({ p1, p2, size = 320, visualScale = 1 }) {
   const categories = [
     { key: 'scoring', label: '득점', fullLabel: '득점 볼륨 (PTS)' },
     { key: 'shooting3p', label: '3점 슛', fullLabel: '3점 외곽포 (3P)' },
@@ -15,7 +15,7 @@ export default function RadarChart({ p1, p2, size = 320 }) {
 
   const total = categories.length;
   // 짧은 축 라벨을 사용해 차트가 가능한 크게 보이도록 한다.
-  const radius = size * 0.30;
+  const radius = size * 0.30 * visualScale;
   const center = size / 2;
 
   // 축 각도 계산
@@ -101,7 +101,7 @@ export default function RadarChart({ p1, p2, size = 320 }) {
           const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
           const cos = Math.cos(angle);
           const sin = Math.sin(angle);
-          const labelDist = radius + 14;
+          const labelDist = radius + (visualScale > 1 ? 6 : 14);
           let x = center + labelDist * cos;
           let y = center + labelDist * sin;
 
@@ -123,7 +123,7 @@ export default function RadarChart({ p1, p2, size = 320 }) {
               y={y + yOffset}
               textAnchor={anchor}
               fill="#1e293b"
-              fontSize="10.5"
+              fontSize={10.5 * visualScale}
               fontWeight="700"
               aria-label={cat.fullLabel}
             >
@@ -164,7 +164,7 @@ export default function RadarChart({ p1, p2, size = 320 }) {
               key={i}
               cx={x}
               cy={y}
-              r="4.5"
+              r={4.5 * visualScale}
               fill="#7657dc"
               stroke="#ffffff"
               strokeWidth="2"
@@ -181,7 +181,7 @@ export default function RadarChart({ p1, p2, size = 320 }) {
               key={i}
               cx={x}
               cy={y}
-              r="4.5"
+              r={4.5 * visualScale}
               fill="#059669"
               stroke="#ffffff"
               strokeWidth="2"
